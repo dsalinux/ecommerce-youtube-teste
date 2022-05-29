@@ -1,0 +1,198 @@
+:root {
+    --background-header: #1d68ba;
+    --background-aside: #1d68ba;
+    --background-hover: rgba(0,0,0,0.3);
+    --item-height: 46px;
+    --color-base: #eee;
+    --header-height: 60px;
+    --width-aside: 250px;
+}
+html, body {
+    height: 100vh;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    background-color: var(--background-header);
+    color: var(--color-base);
+    display: flex;
+}
+header .logo {
+    display: flex;
+    min-width: var(--width-aside);
+    justify-content: center;
+    align-items: center;
+}
+header .logo:hover {
+    filter: drop-shadow(0 0 2px var(--color-base));
+}
+header .logo img {
+    display: block;
+    max-width: calc(var(--width-aside) * 0.7);
+    max-height: calc(var(--header-height) * 0.7);
+}
+header .items {
+    display: flex;
+    flex: 1;
+}
+header .items a, header .opcoes a {
+    display: block;
+    position: relative;
+    font-size: 1.5em;
+    width: var(--header-height);
+    height: var(--header-height);
+    line-height: var(--header-height);
+    color: var(--color-base);
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s;
+    float: left;
+}
+
+header .opcoes .badge {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    transform: translate(-50%, 60%);
+    color: white;
+    font-size: 12px;
+    background: red;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+header .opcoes .user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+header .opcoes .user img {
+    display: block;
+    width: calc(var(--header-height) - 55%);
+    height: calc(var(--header-height) - 55%);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid white;
+}
+header .items a:hover, header .opcoes a:hover {
+    background-color: var(--background-hover);
+}
+header h1 {
+    font-size: 1.5em;
+    margin: 0;
+    padding-left: 20px;
+    line-height: var(--header-height);
+    height: var(--header-height);
+}
+aside.menu-left * {
+    box-sizing: border-box;
+}
+aside.menu-left {
+    background-color: var(--background-aside);
+    width: var(--width-aside);
+    transition: margin 0.3s, left 0.3s;
+    
+}
+aside.menu-left.close {
+    margin-left: calc(var(--width-aside) * -1);
+}
+aside.menu-left nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+aside.menu-left nav ul li a {
+    display: block;
+    padding-left: 10px;
+    color: var(--color-base);
+    text-decoration: none;
+    height: var(--item-height);
+    line-height: var(--item-height);
+    transition: background 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+aside.menu-left nav ul li a:hover {
+    background-color: var(--background-hover);
+}
+aside.menu-left ul li.open > ul {
+    border-left: 3px solid white;
+    display: block;
+}
+aside.menu-left nav li ul {
+    display: none;
+}
+aside.menu-left nav li a .subicon {
+    float: right;
+    padding-right: 10px;
+    line-height: var(--item-height);
+}
+aside.menu-left nav li.open > a .subicon::before {
+    content: '\f106';
+}
+@media screen and (max-width: 768px) {
+    aside.menu-left {
+        position: absolute;
+        top: 0;
+        height: 100vh;
+        left: calc(var(--width-aside) * -1);
+        z-index: 1100;
+        overflow-y: auto;
+    }
+    aside.menu-left.open-mobile {
+        left: 0;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 999;
+        display: none;
+    }
+    aside.open-mobile + .overlay {
+        display: block;
+    }
+    header {
+        flex-direction: column;
+    } 
+    header h1 {
+        font-size: 1rem;
+    }
+    header .logo {
+        padding: 20px 0;
+    }
+    header .opcoes {
+        align-self: flex-end;
+    }
+}
+main {
+    display: flex;
+    flex: 1;
+}
+footer {
+    background-color: var(--background-header);
+    color: var(--color-base);
+    text-align: center;
+}
+.itens-formulario {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.container-main {
+    padding: 20px;
+    flex: 1;
+}

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/estilo.css" />
+        <h:outputStylesheet library="ecommerce" name="css/estilo.css"></h:outputStylesheet>
+        <title>Ecommerce Youtube#{empty titulo?'':' - '.concat(titulo)}</title>
+    </h:head>
+    <h:body>
+        <header>
+            <a href="#{request.contextPath}" class="logo">
+                <h:graphicImage library="ecommerce" name="imagens/logo.png" alt="Logo do sistema Ecommerce na cor branca com uma sacola com alça azul e detalhe de 3 bolinhas verdes no canto inferior direito."></h:graphicImage>
+            </a>
+            <div class="items">
+                <a href="#" class="toogle-aside"><i class="fa-solid fa-bars"></i></a>
+                <h1>#{empty titulo?'Sistema Ecommerce':titulo}</h1>
+            </div>
+            <div class="opcoes">
+                <a href="#"><i class="fa-solid fa-bell"></i><span class="badge">3</span></a>
+                <a href="#" class="user">
+                    <h:graphicImage library="ecommerce" name="imagens/default-user-image.png" alt="Silhueta de uma pessoa na cor branca com o fundo acinzentado."></h:graphicImage>
+                </a>
+            </div>
+        </header>
+        <main>
+            <aside class="menu-left">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html"><i class="fa-solid fa-gauge-high"></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-file"></i> Cadastro <i class="subicon fa-solid fa-angle-down"></i></a>
+                            <ul>
+                                <li>
+                                    <a href="#{request.contextPath}/gerenciar-usuario.xhtml"><i class="fa-solid fa-user"></i> Usuário</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa-solid fa-person"></i> Cliente</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa-solid fa-box"></i> Produto</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa-solid fa-list"></i> Categorias <i class="subicon fa-solid fa-angle-down"></i></a>
+                                    <ul>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-user"></i> Usuário</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-person"></i> Cliente</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-box"></i> Produto</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa-solid fa-list"></i> Categorias</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="consulta.html"><i class="fa-solid fa-cash-register"></i> Financeiro</a>
+                        </li>
+                        <li>
+                            <a href="contato.html"><i class="fa-solid fa-chart-pie"></i> Relatório</a>
+                        </li>
+                        <li>
+                            <a href="configuracoes.html"><i class="fa-solid fa-gears"></i> Configurações</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <div class="overlay"></div>
+            <section class="container-main">
+                <ui:insert></ui:insert>
+            </section>
+        </main>
+        <footer><p>Versão 1.0</p></footer>
+        
+        <h:outputScript library="ecommerce" name="js/template-admin.js"></h:outputScript>
+        <script src="js/template.js"></script>
+        <script src="https://kit.fontawesome.com/dcdd1dcc23.js" crossorigin="anonymous"></script>
+    </h:body>
+</html>
+
