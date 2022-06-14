@@ -10,12 +10,16 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class PersistenceFactory implements Serializable {
 
+    private EntityManager em;
+    
     private EntityManagerFactory emf = 
             Persistence.createEntityManagerFactory("imobiliariaPU");
 
     @Produces
     public EntityManager getEntityManager() {
-        EntityManager em = emf.createEntityManager();
+	if(em == null || !em.isOpen()) {
+	    this.em = emf.createEntityManager();
+	}
         return em;
     }
 }

@@ -17,7 +17,9 @@
 //</editor-fold>
 package br.com.professordanilo.ecommerceyouteste.repository;
 
+import br.com.professordanilo.ecommerceyouteste.util.exception.ErroSistemaException;
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -29,9 +31,51 @@ public class GenericRepository<E, ID extends Serializable> implements Serializab
 
     @Inject
     private EntityManager entityManager;
-    
-    public E save(E entity) {
-        return entity;
+    private final Class<E> entityClass;
+
+    public GenericRepository(Class<E> entityClass) {
+        this.entityClass = entityClass;
     }
-    
+
+    public E save(E entity) throws ErroSistemaException {
+        try {
+            entity = this.entityManager.merge(entity);
+            return entity;
+        } catch (Exception ex) {
+            this.entityManager.getTransaction().rollback();
+            throw new ErroSistemaException("Erro ao salvar.", ex);
+        }
+    }
+
+    public void remove(ID id) throws ErroSistemaException {
+        try {
+
+            E entity = this.entityManager.find(this.entityClass, id);
+            this.entityManager.remove(entity);
+
+        } catch (Exception ex) {
+            this.entityManager.getTransaction().rollback();
+            throw new ErroSistemaException("Erro ao salvar.", ex);
+        }
+    }
+
+    public E findById(ID id) throws ErroSistemaException {
+        try {
+            return this.entityManager.find(entityClass, id);
+        } catch (Exception ex) {
+            this.entityManager.getTransaction().rollback();
+            throw new ErroSistemaException("Erro ao salvar.", ex);
+        }
+    }
+
+    public List<E> findAll() throws ErroSistemaException {
+        try {
+            List<E> entitys;
+            entitys = this.entityManager.createQuery("from " + entityClass.getName(), entityClass).getResultList();
+            return entitys;
+        } catch (Exception ex) {
+            this.entityManager.getTransaction().rollback();
+            throw new ErroSistemaException("Erro ao salvar.", ex);
+        }
+    }
 }

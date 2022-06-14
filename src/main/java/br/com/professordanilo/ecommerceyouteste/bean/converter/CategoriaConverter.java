@@ -17,10 +17,55 @@
 //</editor-fold>
 package br.com.professordanilo.ecommerceyouteste.bean.converter;
 
+import br.com.professordanilo.ecommerceyouteste.entity.Categoria;
+import br.com.professordanilo.ecommerceyouteste.logic.CategoriaLogic;
+import br.com.professordanilo.ecommerceyouteste.util.StringUtil;
+import br.com.professordanilo.ecommerceyouteste.util.exception.ErroNegocioException;
+import br.com.professordanilo.ecommerceyouteste.util.exception.ErroSistemaException;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.inject.spi.CDI;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
 /**
  *
  * @author Danilo Souza Almeida
  */
-public class CategoriaConverter {
+@FacesConverter(value = "categoriaConverter", forClass = Categoria.class, managed = true)
+public class CategoriaConverter implements Converter<Categoria>, Serializable {
+
+//    @Inject
+    private CategoriaLogic logic = CDI.current().select(CategoriaLogic.class).get();
+    
+    @Override
+    public Categoria getAsObject(FacesContext fc, UIComponent uic, String chave) {
+        if(!StringUtil.isEmpty(chave)){
+            try {
+                Integer id = Integer.parseInt(chave);
+                return logic.bucarPorID(new Categoria(id));
+            } catch (ErroNegocioException ex) {
+                Logger.getLogger(CategoriaConverter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ErroSistemaException ex) {
+                Logger.getLogger(CategoriaConverter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NumberFormatException ex) {
+		Logger.getLogger(CategoriaConverter.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+        }
+        return null;
+    }
+
+    @Override
+    public String getAsString(FacesContext fc, UIComponent uic, Categoria t) {
+        if(t != null) {
+            return t.getId().toString();
+        }
+        return null;
+    }
+
 
 }
